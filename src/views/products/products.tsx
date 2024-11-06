@@ -24,7 +24,7 @@ export const Products: React.FC = () => {
 
   // Open modal based on URL parameter
   useEffect(() => {
-    if (typeof window === "undefined") return; // Ensures this code only runs in the browser
+    // if (typeof window === "undefined") return; // Ensures this code only runs in the browser
 
     const productId = searchParams.get("product");
     if (productId) {
