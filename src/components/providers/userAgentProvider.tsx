@@ -9,8 +9,7 @@ import {
   useEffect,
 } from "react";
 
-const CONTEXT_ERROR =
-  "useUserAgentContext must be used within a UserAgentProvider";
+const CONTEXT_ERROR = "useUserAgentContext must be used within a UserAgentProvider";
 
 type UserAgent = string;
 
@@ -40,14 +39,14 @@ export const UserAgentProvider: React.FC<UserAgentProviderProps> = ({
   children,
   userAgent: userAgentProp,
 }) => {
-  const [userAgent, setUserAgent] = useState<UserAgent | undefined>(
-    userAgentProp
-  );
+  const [userAgent, setUserAgent] = useState<UserAgent | undefined>(userAgentProp);
 
+  // Only update user agent on client if JavaScript is enabled
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    setUserAgent(window.navigator.userAgent);
-  }, []);
+    if (typeof window !== "undefined" && !userAgentProp) {
+      setUserAgent(window.navigator.userAgent);
+    }
+  }, [userAgentProp]);
 
   const value = useMemo<UserAgentContextType>(
     () => ({
