@@ -10,11 +10,17 @@ import { usePagination } from "@/hooks/usePagination";
 import { PRODUCTS_DATA } from "@/data/productsData";
 import { useRouter, useSearchParams } from "next/navigation";
 
+
+
 export const Products: React.FC = () => {
   const router = useRouter();
-  const searchParams = useSearchParams(); // Keep this unconditionally
+  
+  const searchParams = useSearchParams(); 
+  // const pathname = usePathname()
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
+  
+  // console.log("router: ",router);
+  // console.log("pathname: ",pathname);
   const {
     currentPage,
     totalPages,
@@ -25,7 +31,7 @@ export const Products: React.FC = () => {
   // Open modal based on URL parameter
   useEffect(() => {
     // if (typeof window === "undefined") return; // Ensures this code only runs in the browser
-
+    if(!searchParams.get("product")) return ;
     const productId = searchParams.get("product");
     if (productId) {
       const product = PRODUCTS_DATA.find((p) => p.id === productId);
