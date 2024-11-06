@@ -35,8 +35,6 @@ export const Products: React.FC = () => {
 
   // Close modal if route changes away from products page
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
     const productId = searchParams.get("product");
     if (productId === null) {
       setSelectedProduct(null);
